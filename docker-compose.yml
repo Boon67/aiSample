@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  #Website client
+  #Couchbase Cluster Config
+  db-node_1:
+    container_name: couchbase
+    build:
+      context: ./couchbase
+    ports:
+      - "11210:11210"
+      - "8091-8096:8091-8096" 
+    environment:
+      NODE_TYPE: DEFAULT
+      CLUSTER_USERNAME: "${ADMIN_ID}" #Initial Cluster Login ID
+      CLUSTER_PASSWORD: "${ADMIN_PWD}" #Cluster Password
+      CLUSTER_NAME: "${CLUSER_NAME}" #Cluster Name
+      SERVICES: "${SERVICE_LIST}" #Services to enable on the cluster
+      CLUSTER_RAMSIZE: "${CLUSTER_RAMSIZE}"  #Make sure your docker instance is big enough
+      BUCKET: "${BUCKET_NAME}" #Create a default bucket
+      BUCKET_RAMSIZE: "${BUCKET_RAMSIZE}" #Ram size for the bucket
+      ENABLE_FLUSH: 1 #Flush enabled for the bucket
